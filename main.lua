@@ -45,7 +45,21 @@ local function handleCmd(str)
             return
         end
 
-        local uiMapID = SlashPin:GetUiMapID(zoneName)
+        local uiMapID
+        SlashPin:Debug("zoneName", zoneName)
+
+        if SlashPin:isExceptionZoneName(zoneName) then
+            zoneName = SlashPin:GetUniqueZoneName(zoneName)
+            SlashPin:Debug("Unique zone name", zoneName)
+            uiMapID = SlashPin:GetUiMapID(zoneName)
+        else
+            uiMapID = SlashPin:GetUiMapID(zoneName)
+            if SlashPin:IsAmbiguousZone(uiMapID) then
+                SlashPin:Print("Found multiple matches for zone: " .. zoneName .. ". Please use one of the following alternatives:")
+                SlashPin:PrintAlternatives(uiMapID)
+                return
+            end
+        end
 
         if uiMapID == nil then
             SlashPin:Error("Could not find zone:", zoneName)
