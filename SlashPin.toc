@@ -1,0 +1,10 @@
+## Interface: 90001
+## Title: SlashPin
+## Author: Iyadriel
+## Version: 0.0.1
+## Notes: Place map pins via chat command
+
+embeds.xml
+
+main.lua
+pin.lua
