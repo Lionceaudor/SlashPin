@@ -7,4 +7,6 @@
 embeds.xml
 
 main.lua
+parse.lua
 pin.lua
+zones.lua
