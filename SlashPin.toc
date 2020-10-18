@@ -1,7 +1,7 @@
 ## Interface: 90001
 ## Title: SlashPin
 ## Author: Iyadriel
-## Version: 0.0.1
+## Version: 1.0.0
 ## Notes: Place map pins via chat command
 
 embeds.xml
