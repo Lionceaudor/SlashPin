@@ -6,9 +6,15 @@ function SlashPin:Pin(x, y)
 
     local map = C_Map.GetBestMapForUnit("player")
     SlashPin:Debug(map)
-    local point = UiMapPoint.CreateFromCoordinates(map, x, y)
 
-    C_Map.SetUserWaypoint(point)
+    if C_Map.CanSetUserWaypointOnMap(map) then
+        local point = UiMapPoint.CreateFromCoordinates(map, x, y)
+        C_Map.SetUserWaypoint(point)
+        -- TODO make automatic tracking optional
+        C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+    else
+        SlashPin:Print("|cffff0000This zone does not support placing pins.")
+    end
 end
 
 function SlashPin:Clear()
