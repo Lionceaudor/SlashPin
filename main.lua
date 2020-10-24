@@ -27,7 +27,9 @@ local function handlePinCmd(x, y, uiMapID)
     SlashPin:Debug(x)
     SlashPin:Debug(y)
 
-    SlashPin:Pin(x / 100, y / 100, uiMapID)
+    x, y = SlashPin:ConvertCoordinates(x, y)
+
+    SlashPin:Pin(x, y, uiMapID)
 end
 
 local function handleCmd(str)

@@ -1,5 +1,5 @@
 function SlashPin:Pin(x, y, uiMapID)
-    if x > 1 or y > 1 or x < 0 or y < 0 then
+    if not SlashPin:ValidateCoordinates(x, y) then
         SlashPin:Error("Coordinates out of bounds.")
         return
     end
