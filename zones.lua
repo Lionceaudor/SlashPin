@@ -73,6 +73,12 @@ function SlashPin:GetUiMapID(zoneName)
     return uiMapID
 end
 
+function SlashPin:GetUiMapIDForCurrentZone()
+    local uiMapID = C_Map.GetBestMapForUnit("player")
+    SlashPin:Debug("uiMapID", uiMapID)
+    return uiMapID
+end
+
 function SlashPin:IsAmbiguousZone(uiMapID)
     return alternatives[lookupTable[uiMapID]]
 end

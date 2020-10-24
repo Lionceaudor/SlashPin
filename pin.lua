@@ -5,7 +5,7 @@ function SlashPin:Pin(x, y, uiMapID)
     end
 
     if uiMapID == nil then
-        uiMapID = C_Map.GetBestMapForUnit("player")
+        uiMapID = SlashPin:GetUiMapIDForCurrentZone()
     end
 
     SlashPin:Debug(uiMapID)
