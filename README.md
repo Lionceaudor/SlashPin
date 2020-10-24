@@ -1,5 +1,6 @@
 SlashPin adds TomTom-style slash commands to simplify usage of the new map pin system introduced in the default UI with patch 9.0.
 
+**/pin here**: Place a pin at current location  
 **/pin \<x\> \<y\>**: Place a pin at x, y  
 **/pin \<zone\> \<x\> \<y\>**: Place a pin at x, y in zone  
 **/pin clear**: Clear current pin

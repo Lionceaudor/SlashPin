@@ -14,6 +14,7 @@ end
 
 local function printUsage()
     SlashPin:Print("Usage:")
+    SlashPin:Print("/pin here - Place a pin at current location")
     SlashPin:Print("/pin <x> <y> - Place a pin at x, y")
     SlashPin:Print("/pin <zone> <x> <y> - Place a pin at x, y in zone")
     SlashPin:Print("/pin clear - Remove active pin")
@@ -58,6 +59,8 @@ local function handleCmd(str)
 
     if ltoken == "clear" then
         SlashPin:Clear()
+    elseif ltoken == "here" then
+        SlashPin:PinHere()
     elseif tokens[1] and not tonumber(tokens[1]) then -- zone name specified
         local zoneName, x, y = SlashPin:ParseTokens(tokens)
         if not zoneName then
@@ -68,8 +71,8 @@ local function handleCmd(str)
         local uiMapID, isAmbiguousZone = getUiMapIDForZoneName(zoneName)
 
         if isAmbiguousZone then
-                SlashPin:Print("Found multiple matches for zone: " .. zoneName .. ". Please use one of the following alternatives:")
-                SlashPin:PrintAlternatives(uiMapID)
+            SlashPin:Print("Found multiple matches for zone: " .. zoneName .. ". Please use one of the following alternatives:")
+            SlashPin:PrintAlternatives(uiMapID)
         elseif uiMapID then
             handlePinCmd(x, y, uiMapID)
         else
