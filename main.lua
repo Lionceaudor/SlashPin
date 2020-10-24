@@ -32,6 +32,24 @@ local function handlePinCmd(x, y, uiMapID)
     SlashPin:Pin(x, y, uiMapID)
 end
 
+local function getUiMapIDForZoneName(zoneName)
+    local uiMapID = nil
+    local isAmbiguousZone = false
+
+    SlashPin:Debug("Getting map ID for zoneName:", zoneName)
+
+    if SlashPin:isExceptionZoneName(zoneName) then -- User specified unique name from alternatives
+        zoneName = SlashPin:GetUniqueZoneName(zoneName)
+        SlashPin:Debug("Unique zone name", zoneName)
+        uiMapID = SlashPin:GetUiMapID(zoneName)
+    else
+        uiMapID = SlashPin:GetUiMapID(zoneName)
+        isAmbiguousZone = SlashPin:IsAmbiguousZone(uiMapID)
+    end
+
+    return uiMapID, isAmbiguousZone
+end
+
 local function handleCmd(str)
     local tokens = SlashPin:ParseCmd(str)
 
@@ -47,25 +65,15 @@ local function handleCmd(str)
             return
         end
 
-        local uiMapID
-        SlashPin:Debug("zoneName", zoneName)
+        local uiMapID, isAmbiguousZone = getUiMapIDForZoneName(zoneName)
 
-        if SlashPin:isExceptionZoneName(zoneName) then
-            zoneName = SlashPin:GetUniqueZoneName(zoneName)
-            SlashPin:Debug("Unique zone name", zoneName)
-            uiMapID = SlashPin:GetUiMapID(zoneName)
-        else
-            uiMapID = SlashPin:GetUiMapID(zoneName)
-            if SlashPin:IsAmbiguousZone(uiMapID) then
+        if isAmbiguousZone then
                 SlashPin:Print("Found multiple matches for zone: " .. zoneName .. ". Please use one of the following alternatives:")
                 SlashPin:PrintAlternatives(uiMapID)
-                return
-            end
-        end
-
-        if uiMapID == nil then
+        elseif uiMapID then
+            handlePinCmd(x, y, uiMapID)
+        else
             SlashPin:Error("Could not find zone:", zoneName)
-            return
         end
 
         handlePinCmd(x, y, uiMapID)
