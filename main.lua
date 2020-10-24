@@ -58,7 +58,7 @@ local function handleCmd(str)
 
     if ltoken == "clear" then
         SlashPin:Clear()
-    elseif tokens[1] and not tonumber(tokens[1]) then
+    elseif tokens[1] and not tonumber(tokens[1]) then -- zone name specified
         local zoneName, x, y = SlashPin:ParseTokens(tokens)
         if not zoneName then
             printUsage()
@@ -75,9 +75,7 @@ local function handleCmd(str)
         else
             SlashPin:Error("Could not find zone:", zoneName)
         end
-
-        handlePinCmd(x, y, uiMapID)
-    elseif tonumber(tokens[1]) then
+    elseif tonumber(tokens[1]) then -- no zone name, pin in this zone
         handlePinCmd(tokens[1], tokens[2])
     else
         printUsage()
