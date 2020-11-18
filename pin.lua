@@ -47,5 +47,5 @@ function placePin(x, y, uiMapID)
 
     -- TODO make automatic tracking optional
     C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-    PlaySound(SOUNDKIT.UI_MAP_WAYPOINT_SUPER_TRACK)
+    PlaySound(SOUNDKIT.UI_MAP_WAYPOINT_SUPER_TRACK_ON)
 end
