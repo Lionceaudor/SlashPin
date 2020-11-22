@@ -86,3 +86,6 @@ local function handleCmd(str)
 end
 
 SlashPin:RegisterChatCommand("pin", handleCmd)
+if not IsAddOnLoaded("TomTom") then -- Are there other addons that use /way?
+    SlashPin:RegisterChatCommand("way", handleCmd)
+end
