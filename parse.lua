@@ -1,15 +1,21 @@
 -- Code adapted from TomTom
 
-local wrongseparator = "(%d)" .. (tonumber("1.1") and "," or ".") .. "(%d)"
-local rightseparator =   "%1" .. (tonumber("1.1") and "." or ",") .. "%2"
+local _G = _G
+local select = _G.select
+local table_concat = _G.table.concat
+local table_insert = _G.table.insert
+local tonumber = _G.tonumber
+local unpack = _G.unpack
+
+local wrongseparator = "(%d)"..(tonumber("1.1") and "," or ".").."(%d)"
+local rightseparator =   "%1"..(tonumber("1.1") and "." or ",").."%2"
 
 function SlashPin:ParseCmd(str)
     local tokens = {}
 
     str = str:gsub("(%d)[%.,] (%d)", "%1 %2"):gsub(wrongseparator, rightseparator)
-
     for token in str:gmatch("%S+") do
-        table.insert(tokens, token)
+        table_insert(tokens, token)
     end
 
     return tokens
@@ -30,5 +36,5 @@ function SlashPin:ParseTokens(tokens)
         return nil
     end
 
-    return table.concat(tokens, " ", 1, zoneEnd), select(zoneEnd + 1, unpack(tokens))
+    return table_concat(tokens, " ", 1, zoneEnd), select(zoneEnd + 1, unpack(tokens))
 end
