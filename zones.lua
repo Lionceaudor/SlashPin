@@ -2,7 +2,7 @@ local Tourist = LibStub("LibTourist-3.0")
 
 local _G = _G
 
-local C_Map_GetBestMapForUnit = _G.C_Map_GetBestMapForUnit
+local C_Map_GetBestMapForUnit = _G.C_Map.GetBestMapForUnit
 local C_Map_GetMapInfo = _G.C_Map.GetMapInfo
 
 -- uiMapID, nonLocalizedName
